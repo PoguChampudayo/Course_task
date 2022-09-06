@@ -14,14 +14,14 @@ class VKtoYaDiskPhotoSaver:
         self.ya_token = ya_token
         self.VK_id = VK_id
         self.folder = 'Фото с VK'
-        with open('VKtokenservice.txt', encoding='utf-8') as f:
+        with open('VKtokenservice.txt', encoding='utf-8') as f: #Tested with service VK token
             self.VK_token= f.read().split()
         self.url = ('https://api.vk.com/method/')
         self.params = {
             'access_token' : self.VK_token,
             'v': '5.131'
         }
-# Initialization: VKtoken is read from VKtoken.txt in parent folder
+# Initialization: VKtoken is read from VKtoken.txt (or VKtokenservice.txt) in parent folder
    
     def get_VK_photo_info(self):
         self.VK_method = ('photos.get')
