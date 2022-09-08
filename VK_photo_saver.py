@@ -36,15 +36,6 @@ class VKtoYaDiskPhotoSaver:
         return req.json()['response']['items']
 #Input: class attrubutes (self.VK_id)
 #Output: photos from VK profile info pulled from response -> items (extended = 1)
-
-    def get_max_size(self, response_items):
-        max_sizes = {}
-        for photo in response_items:
-            max_size = max([photo['sizes'][i]['width'] * photo['sizes'][i]['height'] 
-                            for i,_ in enumerate(photo['sizes'])])
-            max_sizes.setdefault(photo['id'], max_size)
-        return max_sizes
-# Get maximum size of each photo
     
     def progress(self, mode, length=None):
         if mode == 'create':
@@ -61,10 +52,9 @@ class VKtoYaDiskPhotoSaver:
         result = {}
         unique_names = []
         for photo in response_items:
-            for max_size_photo in photo['sizes']:
-                if (max_size_photo['width'] * max_size_photo['height'] == self.get_max_size(response_items)[photo['id']]):
-                    result.setdefault(photo['id'],[max_size_photo['url'], max_size_photo['type'], 
-                                                   photo['likes']['count'], photo['date']])
+            for max_size_photo in photo['sizes'][::-1]:
+                result.setdefault(photo['id'],[max_size_photo['url'], max_size_photo['type'], photo['likes']['count'], photo['date']])
+                break
             unique_names.append(photo['likes']['count'])
         counter = Counter(unique_names)
         for photo in result:
