@@ -29,8 +29,6 @@ class VKPhotoSaver:
             'count': self.photo_quantity
         }
         req = requests.get(self.url + self.VK_method, params={**self.params, **get_VK_photo_info_params})
-        with open('response.json', 'w') as f:
-            json.dump(req.json(), f)
         try:
             return req.json()['response']['items']
         except KeyError:

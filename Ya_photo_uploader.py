@@ -41,7 +41,7 @@ class Ya_photo_uploader:
     
     def upload_to_YaDisk(self, file_path:str, file_url:str):
         href = self._get_YaDisk_upload_link(disc_file_path=file_path, file_url=file_url).get('href', '')
-        req = requests.post(href, data=file_url)
-        print(req.json())
+        requests.post(href, data=file_url)
+
 
     
