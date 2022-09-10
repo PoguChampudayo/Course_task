@@ -27,7 +27,7 @@ def launcher(VK_id, VK_token, ya_token, photo_quantity=5):
         for photo in photos:
             Ya_uploads.upload_to_YaDisk(f'{Ya_uploads.folder}/{photos[photo][2]}.jpg', 
                                     photos[photo][0])
-            time.sleep(0.1)
+            time.sleep(0.2)
             if Ya_uploads.check_for_file(f'{Ya_uploads.folder}/{photos[photo][2]}.jpg').status_code == 404:
                 create_log(photos[photo][2], photos[photo][1], 'URL is not valid')
             else:
